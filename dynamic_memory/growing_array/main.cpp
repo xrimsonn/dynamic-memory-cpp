@@ -19,18 +19,6 @@ void add_items(string*& array, string text, int& size, int& num_items) {
 }
 
 int main() {
-  fstream names_file_out("./names.txt", ios::app);
-  if (names_file_out.is_open()) {
-    cout << "Register with your name: ";
-    string name;
-    cin >> name;
-    names_file_out << name << endl;
-    cout << "Succesfully registered" << "\n";
-  } else {
-    cerr << "There was a problem opening the file" << endl;
-  }
-  names_file_out.close();
-
   int size = 2;
   int num_lines = 0;
   string* names_arr = new string[size]{"antonio"};
@@ -46,6 +34,32 @@ int main() {
     cerr << "There was a problem opening the file" << endl;
   }
   names_file_in.close();
+
+  fstream names_file_out("./names.txt", ios::app);
+  if (names_file_out.is_open()) {
+    cout << "Register with your name: ";
+    string name;
+    cin >> name;
+
+    bool name_exists = false;
+    for (int i = 0; i < num_lines; i++) {
+      if (names_arr[i] == name) {
+        name_exists = true;
+        break;
+      }
+    }
+
+    if (!name_exists) {
+      names_file_out << name << endl;
+      cout << "Succesfully registered" << endl;
+    } else {
+      cerr << "Name already exists" << endl;
+    }
+
+  } else {
+    cerr << "There was a problem opening the file" << endl;
+  }
+  names_file_out.close();
 
   delete[] names_arr;
   return 0;
