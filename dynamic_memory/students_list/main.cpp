@@ -26,7 +26,7 @@ Student* add(Student* list, int& size, string name, int age, double gpa) {
     size++;
     return new_list;
   } else {
-    cerr << "Something went wrong";
+    cerr << "Something  went wrong" << endl;
     exit(1);
   }
 }
